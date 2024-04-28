@@ -35,7 +35,7 @@ class MovieDetailView extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.5,
                       width: double.infinity,
                       child: Hero(
-                        tag: model.backdropPath.toString(),
+                        tag: model.posterPath.toString(),
                         child: ClipRRect(
                           borderRadius: const BorderRadius.only(
                             bottomRight: Radius.circular(30),
