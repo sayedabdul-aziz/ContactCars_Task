@@ -1,6 +1,6 @@
 ## ContactsCar 
 
-This Flutter project is a GitHub repositories viewer that allows you to explore repositories, toggle between light and dark themes, and implement pagination for efficient data loading. Additionally, you can search for specific repositories.
+This Flutter project is a popular movies that allows you to explore movies, and implement pagination for efficient data loading. Additionally, you can show details for specific movie.
 
 ## Features
 
