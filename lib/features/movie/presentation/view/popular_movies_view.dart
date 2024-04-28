@@ -1,3 +1,4 @@
+import 'package:contactcars_task/core/constants/colors.dart';
 import 'package:contactcars_task/features/movie/presentation/manager/movie_cubit.dart';
 import 'package:contactcars_task/features/movie/presentation/widgets/movie_item.dart';
 import 'package:flutter/material.dart';
@@ -29,25 +30,71 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
               var movies = state.movieModel;
               return Padding(
                 padding: const EdgeInsets.all(10),
-                child: Scrollbar(
-                  child: GridView.builder(
-                      padding: const EdgeInsets.all(15),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        mainAxisExtent: 220,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                if (movies.page! > 1) {
+                                  context
+                                      .read<MovieCubit>()
+                                      .getPopularMovies(page: movies.page! - 1);
+                                }
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                color: AppColors.primary,
+                              )),
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(movies.page.toString()),
+                              const Text('/'),
+                              Text(movies.totalPages.toString()),
+                            ],
+                          ),
+                          const Spacer(),
+                          IconButton(
+                              onPressed: () {
+                                if (movies.page! < movies.totalPages!) {
+                                  context
+                                      .read<MovieCubit>()
+                                      .getPopularMovies(page: movies.page! + 1);
+                                }
+                              },
+                              icon: Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: AppColors.primary,
+                              )),
+                        ],
                       ),
-                      itemCount: movies.results?.length,
-                      itemBuilder: (context, index) {
-                        var movie = movies.results?[index];
-                        return MovieItem(
-                          imageUrl: movie?.backdropPath ?? "",
-                          name: movie?.title ?? "",
-                          date: movie?.releaseDate ?? "",
-                        );
-                      }),
+                      Scrollbar(
+                        child: GridView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.all(15),
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              mainAxisExtent: 220,
+                            ),
+                            itemCount: movies.results?.length,
+                            itemBuilder: (context, index) {
+                              var movie = movies.results?[index];
+                              return MovieItem(
+                                imageUrl: movie?.backdropPath ?? "",
+                                name: movie?.title ?? "",
+                                date: movie?.releaseDate ?? "",
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
               );
             } else if (state is MoviesFailure) {
