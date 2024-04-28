@@ -29,16 +29,19 @@ class MovieItem extends StatelessWidget {
           SizedBox(
             height: 150,
             width: double.infinity,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(15)),
-              child: CachedNetworkImage(
-                imageUrl: 'https://image.tmdb.org/t/p/original$imageUrl',
-                fit: BoxFit.cover,
-                placeholder: (BuildContext context, String url) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
+            child: Hero(
+              tag: imageUrl,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
+                child: CachedNetworkImage(
+                  imageUrl: 'https://image.tmdb.org/t/p/original$imageUrl',
+                  fit: BoxFit.cover,
+                  placeholder: (BuildContext context, String url) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                ),
               ),
             ),
           ),

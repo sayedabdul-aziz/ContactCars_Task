@@ -1,3 +1,4 @@
+import 'package:contactcars_task/features/movie/data/model/result.dart';
 import 'package:contactcars_task/features/movie/presentation/view/movie_details_view.dart';
 import 'package:contactcars_task/features/movie/presentation/view/popular_movies_view.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +15,12 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: movieDetailsRoute,
-        builder: (context, state) => const MovieDetailsView(),
+        builder: (context, state) {
+          final movie = state.extra! as Results;
+          return MovieDetailView(
+            model: movie,
+          );
+        },
       ),
     ],
   );

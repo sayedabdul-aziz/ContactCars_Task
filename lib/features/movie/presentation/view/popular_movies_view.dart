@@ -1,8 +1,10 @@
 import 'package:contactcars_task/core/constants/colors.dart';
+import 'package:contactcars_task/core/utils/app_router.dart';
 import 'package:contactcars_task/features/movie/presentation/manager/movie_cubit.dart';
 import 'package:contactcars_task/features/movie/presentation/widgets/movie_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class PopularMoviesView extends StatefulWidget {
   const PopularMoviesView({super.key});
@@ -86,10 +88,16 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
                             itemCount: movies.results?.length,
                             itemBuilder: (context, index) {
                               var movie = movies.results?[index];
-                              return MovieItem(
-                                imageUrl: movie?.backdropPath ?? "",
-                                name: movie?.title ?? "",
-                                date: movie?.releaseDate ?? "",
+                              return InkWell(
+                                onTap: () {
+                                  context.push(AppRouter.movieDetailsRoute,
+                                      extra: movie);
+                                },
+                                child: MovieItem(
+                                  imageUrl: movie?.posterPath ?? "",
+                                  name: movie?.title ?? "",
+                                  date: movie?.releaseDate ?? "",
+                                ),
                               );
                             }),
                       ),
