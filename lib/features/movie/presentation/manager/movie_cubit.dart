@@ -14,8 +14,8 @@ class MovieCubit extends Cubit<MoviesState> {
 
   Future<void> getPopularMovies({required int page}) async {
     emit(MoviesInitial());
-
     var result = await moviesRepo.getPopularMovies(page: page);
+
     result.fold(
       (failure) => emit(MoviesFailure(failure: failure)),
       (responseActivit) async {

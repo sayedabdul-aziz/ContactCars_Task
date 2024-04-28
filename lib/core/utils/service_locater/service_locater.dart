@@ -41,5 +41,5 @@ Future<void> setupServiceLocater() async {
   //ex: Dio, etc...
   sl.registerLazySingleton<Dio>(() => Dio());
   sl.registerLazySingleton(() => InternetConnectionChecker());
-  Hive.initFlutter();
+  await Hive.initFlutter();
 }
